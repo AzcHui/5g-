@@ -2,7 +2,9 @@
   <n-layout>
     <n-layout-header>
       <AppHeader />
-      <AppMenu />
+      <div style="background-color: #72a3e8;">
+        <AppMenu />
+      </div>
     </n-layout-header>
     <n-layout-content>
       <AppMain />

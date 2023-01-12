@@ -15,8 +15,27 @@ const routes = [
       {
         name: 'Home',
         path: '/home',
+        meta: {
+          title: '首页'
+        },
         component: () => import('../views/Home.vue'),
       },
+      {
+        name: '5GConcept',
+        path: '/5g-concept',
+        meta: {
+          title: '5G概念'
+        },
+        component: () => import('../views/Concept.vue'),
+      },
+      {
+        name: '5GExchange',
+        path: '/5g-exchange',
+        meta: {
+          title: '5G通信'
+        },
+        component: '',
+      }
     ],
   },
 ]
