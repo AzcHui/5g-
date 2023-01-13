@@ -1,11 +1,11 @@
 <template>
   <div class="layout-menu">
-    <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" @update:value="handleUpdateValue" />
+    <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" key-field="name" :render-label="renderMenuLabel" @update:value="handleUpdateValue" />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, h } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { NMenu } from 'naive-ui';
 
@@ -13,82 +13,52 @@ import { NMenu } from 'naive-ui';
 const route = useRoute();
 const router = useRouter();
 const { routes } = router.options;
-
 // 当前选中菜单
-const activeKey = ref(route.path);
+const activeKey = ref(route.name);
 
 // 路由菜单
-const menuOptions = computed(() => {
-  return routes[0].children.map(item => {
-    return {
-      label: item.meta.title,
-      key: item.path
-    };
-  });
-});
+// const menuOptions = computed(() => {
+//   return routes[0].children.map(item => {
+//     if (item.path) {
+//       return {
+//         label: item.meta.title,
+//         key: item.path,
+//         isRoute: true
+//       };
+//     }
+//     return {
+//       label: () =>
+//         h(
+//           'a',
+//           {
+//             href: item.meta.href,
+//             target: '_blank',
+//             rel: 'noopenner noreferrer'
+//           },
+//           item.meta.title
+//         ),
+//       key: item.meta.title,
+//       isRoute: false
+//     };
+//   });
+// });
+const menuOptions = ref(routes[0].children);
+console.log(menuOptions.value);
 
-// 跳转路由
-function handleUpdateValue(key) {
-  console.log(key);
-  router.push(key)
+// 设定菜单label
+function renderMenuLabel(option) {
+  // console.log(option);
+  if (option.path) {
+    return option.meta.title;
+  }
+  return h('a', { href: option.meta.href, target: '_blank' }, option.meta.title);
 }
 
-const menuOptions2 = [
-  {
-    label: '首页',
-    key: 'hear-the-wind-sing'
-  },
-  {
-    label: '5G概念',
-    key: 'pinball-1973'
-  },
-  {
-    label: '5G通信',
-    key: 'a-wild-sheep-chase'
-  },
-  {
-    label: '无线电概念',
-    key: 'a-wild-sheep-chase'
-  },
-  {
-    label: '在线客服',
-    key: 'a-wild-sheep-chase'
-  },
-  {
-    label: '关于5G发展',
-    key: 'dance-dance-dance',
-    children: [
-      {
-        label: '5G发展',
-        key: 'the-past-increases-the-future-recedes'
-      },
-      {
-        label: '天线材料概况',
-        key: 'the-past-increases-the-future-recedes'
-      },
-      {
-        label: '热导材料研究',
-        key: 'the-past-increases-the-future-recedes'
-      },
-      {
-        label: '电磁材料研究',
-        key: 'the-past-increases-the-future-recedes'
-      },
-      {
-        label: '微波介质',
-        key: 'the-past-increases-the-future-recedes'
-      },
-      {
-        label: '先进封装行业',
-        key: 'the-past-increases-the-future-recedes'
-      }
-    ]
-  },
-  {
-    label: '手机APP',
-    key: 'a-wild-sheep-chase'
-  }
-];
+// 跳转路由
+function handleUpdateValue(key, item) {
+  console.log(key, item);
+  item.path && router.push(item.path);
+}
 </script>
 
 <style lang="less">
@@ -101,9 +71,13 @@ const menuOptions2 = [
       font-size: 16px;
       text-align: center;
       padding: 0;
-      .n-menu-item-content-header {
+      .n-menu-item-content-header,
+      a {
         color: #fff !important;
       }
+    }
+    &.n-menu--horizontal .n-menu-item-content:not(.n-menu-item-content--disabled):hover {
+      background-color: #3260ab;
     }
     &.n-menu--horizontal .n-menu-item-content.n-menu-item-content--selected {
       // color: #fff;

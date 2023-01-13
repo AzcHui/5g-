@@ -35,6 +35,82 @@ const routes = [
           title: '5G通信'
         },
         component: '',
+      },
+      {
+        name: 'RadioConcept',
+        path: '/radio-concept',
+        meta: {
+          title: '无线电概念'
+        },
+        component: '',
+      },
+      {
+        name: 'CustomerService',
+        path: '',
+        meta: {
+          title: '在线客服',
+          href: 'https://go.crisp.chat/chat/embed/?website_id=7a8894aa-f90a-474f-acae-e147ff493cc8'
+        },
+      },
+      {
+        name: 'About5G',
+        path: '/about-5g',
+        meta: {
+          title: '关于5G发展'
+        },
+        component: '',
+        children: [
+          {
+            name: '5GDevelop',
+            path: '/5g-develop',
+            meta: {
+              title: '5G发展'
+            }
+          },
+          {
+            name: 'AntennaMaterial',
+            path: '/antenna-material',
+            meta: {
+              title: '天线材料概况'
+            }
+          },
+          {
+            name: 'HotMaterial',
+            path: '/hot-material',
+            meta: {
+              title: '热导材料研究'
+            }
+          },
+          {
+            name: 'ElectricityMaterial',
+            path: '/electricity-material',
+            meta: {
+              title: '电磁材料研究'
+            }
+          },
+          {
+            name: 'Microwave',
+            path: '/microwave',
+            meta: {
+              title: '微波介质'
+            }
+          },
+          {
+            name: 'Industry',
+            path: '/industry',
+            meta: {
+              title: '先进封装行业'
+            }
+          }
+        ]
+      },
+      {
+        name: 'APP',
+        path: '',
+        meta: {
+          title: '手机APP',
+          href: 'https://h1f7v.p969w2s.com/5yxg1'
+        },
       }
     ],
   },
